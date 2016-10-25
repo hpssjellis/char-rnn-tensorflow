@@ -2,11 +2,11 @@
      
 $phpGo1 =  escapeshellarg($_POST['go1']);
      
-$phpGo2 = $_POST['go2'];
+$phpGo2 = escapeshellarg($_POST['go2']);
      
 $phpGo3 = escapeshellarg($_POST['go3']);
-     r>
-$phpGo4 = $_POST['go4'];
+     
+$phpGo4 = escapeshellarg($_POST['go4']);
 
      
 echo "<br><br>Results from sample-tinyshakespeare.py...<br>";
