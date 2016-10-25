@@ -10,7 +10,7 @@ $phpGo4 = escapeshellarg($_POST['go4']);
 
      
 echo "<br><br>Results from sample-tinyshakespeare.py...<br>";
-echo "sent:  python sample-tinyshakespeare.1.py --save_dir $phpGo1 -n $phpGo2 --prime $phpGo3 --sample $phpGo4<br>";
+echo "sent:  python sample-tinyshakespeare.1.py --save_dir $phpGo1 -n $phpGo2 --prime $phpGo3 --sample $phpGo4<br><hr><br>";
 
      
 $output = passthru("python sample-tinyshakespeare.1.py --save_dir ".$phpGo1." -n ".$phpGo2." --prime ".$phpGo3." --sample ".$phpGo4);
