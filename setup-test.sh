@@ -41,23 +41,23 @@ wget https://github.com/bazelbuild/bazel/releases/download/0.3.1/bazel-0.3.1-ins
 echo "Presently these next two commands not working well. May have to do from the command line"
 
 
-sudo bash bazel-0.3.1-installer-linux-x86_64.sh --user
+#sudo bash bazel-0.3.1-installer-linux-x86_64.sh --user
 
 #sudo bash bazel-0.2.3-installer-linux-x86_64.sh --user
 #bash bazel-0.2.3-installer-linux-x86_64.sh --user --bin=${IDEDIR}/bin
 
 #export PATH=$PATH:~/bin
-export PATH="$PATH:~/bin"
+#export PATH="$PATH:~/bin"
 #rm bazel-0.2.3-installer-linux-x86_64.sh
 
-echo "Just test if bazel is working"
+#echo "Just test if bazel is working"
 
-bazel -h
+#bazel -h
 
 
 
-echo "Needed if you open a new terminal to reset the path to bazel"
-printf "\n\nexport PATH=\$PATH:~/bin"  >> ~/.profile
+#echo "Needed if you open a new terminal to reset the path to bazel"
+#printf "\n\nexport PATH=\$PATH:~/bin"  >> ~/.profile
 
 #printf "\n\nsource ./bin/bazel-complete.bash"  >> ~/.profile
 echo ""
@@ -114,8 +114,8 @@ cd /home/ubuntu/workspace
 #sudo pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.9.0rc0-cp27-none-linux_x86_64.whl
 
 
-sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0rc0-cp27-none-linux_x86_64.whl
-
+#sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0rc0-cp27-none-linux_x86_64.whl
+sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.11.0rc0-cp27-none-linux_x86_64.whl
 
 
 
@@ -163,7 +163,7 @@ cd /home/ubuntu/workspace
 
 echo "Now install Google Magenta"
 
-git clone https://github.com/tensorflow/magenta.git
+#git clone https://github.com/tensorflow/magenta.git
 
 
 #broken link to tensorflow???
@@ -186,10 +186,10 @@ cd /home/ubuntu/workspace
 
 #cp a* /home/ubuntu/workspace/magenta
 
-mv /home/ubuntu/workspace/a01-all.sh /home/ubuntu/workspace/magenta/magenta/a01-all.sh
-mv /home/ubuntu/workspace/a02-just-primer.sh /home/ubuntu/workspace/magenta/magenta/a02-just-primer.sh
-mv /home/ubuntu/workspace/a05-pre-trained-by-magenta.sh /home/ubuntu/workspace/magenta/magenta/a05-pre-trained-by-magenta.sh
-mv /home/ubuntu/workspace/trained-magenta /home/ubuntu/workspace/magenta/magenta/trained-magenta
+#mv /home/ubuntu/workspace/a01-all.sh /home/ubuntu/workspace/magenta/magenta/a01-all.sh
+#mv /home/ubuntu/workspace/a02-just-primer.sh /home/ubuntu/workspace/magenta/magenta/a02-just-primer.sh
+#mv /home/ubuntu/workspace/a05-pre-trained-by-magenta.sh /home/ubuntu/workspace/magenta/magenta/a05-pre-trained-by-magenta.sh
+#mv /home/ubuntu/workspace/trained-magenta /home/ubuntu/workspace/magenta/magenta/trained-magenta
 
 
 
@@ -213,9 +213,9 @@ mv /home/ubuntu/workspace/trained-magenta /home/ubuntu/workspace/magenta/magenta
 
 
 
-echo "Now test if bazel is working and build ~1.5 Gb of files"
+#echo "Now test if bazel is working and build ~1.5 Gb of files"
 
-cd /home/ubuntu/workspace/magenta
+#cd /home/ubuntu/workspace/magenta
 
 #bazel test //magenta:all
 
@@ -243,7 +243,7 @@ echo "If it all worked try these scripts"
 
 
 
-cd /home/ubuntu/workspace/magenta/magenta
+#cd /home/ubuntu/workspace/magenta/magenta
 
 
 
@@ -259,14 +259,14 @@ echo "Might as well build the training file structure here"
 echo "and setup a spot for temporary files"
 echo "not sure if magenta can make the folders for you????"
 
-mkdir /tmp/basic_rnn
-mkdir /tmp/basic_rnn/logdir
-mkdir /tmp/basic_rnn/logdir/run1
+#mkdir /tmp/basic_rnn
+#mkdir /tmp/basic_rnn/logdir
+#mkdir /tmp/basic_rnn/logdir/run1
 
 #mkdir /tmp/basic_rnn/run1
 #mkdir /tmp/basic_rnn/run2
 #mkdir /tmp/basic_rnn/run3
-mkdir /tmp/basic_rnn_generated
+#mkdir /tmp/basic_rnn_generated
 
 
 
@@ -276,18 +276,18 @@ echo "Add a few symlinks to make life easier"
 cd /home/ubuntu/workspace
 
 
-ln -s /home/ubuntu/workspace/magenta/magenta a00-magenta-workspace
-ln -s /home/ubuntu/workspace/magenta/magenta/testdata a01-link-to-your-midi
-ln -s /home/ubuntu/workspace/magenta/magenta/models/shared a02-link-to-primer-midi
+#ln -s /home/ubuntu/workspace/magenta/magenta a00-magenta-workspace
+#ln -s /home/ubuntu/workspace/magenta/magenta/testdata a01-link-to-your-midi
+#ln -s /home/ubuntu/workspace/magenta/magenta/models/shared a02-link-to-primer-midi
 
-ln -s /tmp/basic_rnn_generated a03-link-to-generated-midi
-ln -s /tmp/basic_rnn a04-link-to-basic_rnn-run
-ln -s /tmp a05-link-to-tmp
+#ln -s /tmp/basic_rnn_generated a03-link-to-generated-midi
+#ln -s /tmp/basic_rnn a04-link-to-basic_rnn-run
+#ln -s /tmp a05-link-to-tmp
 
 
 
-cd /home/ubuntu/workspace/bazel
-ln -s v/home/ubuntu/.bazel/bin bazel-location
+#cd /home/ubuntu/workspace/bazel
+#ln -s v/home/ubuntu/.bazel/bin bazel-location
 
 
 
@@ -390,7 +390,7 @@ git clone https://github.com/hpssjellis/char-rnn-tensorflow-music-3dprinting.git
 
 
 
-cd /home/ubuntu/workspace/magenta/magenta
+#cd /home/ubuntu/workspace/magenta/magenta
 
 echo "Lets be brave and try to run the hello music AI world bash file"
 echo "a01-helloworld.sh should have been copied into the magenta workspace"
