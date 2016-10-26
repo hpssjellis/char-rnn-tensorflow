@@ -1,80 +1,46 @@
-<?php
+from __future__ import print_function
+import numpy as np
+import tensorflow as tf
 
+import argparse
+import time
+import os
+from six.moves import cPickle
 
+from utils import TextLoader
+from model import Model
 
+from six import text_type
 
+import sys
 
-$phpGo1 = escapeshellarg(($_POST['go1'] |= "")? $_POST['go1'] : "save-tinyshakespeare");
-  
+def main():
+    parser = argparse.ArgumentParser(sys.argv)
+    parser.add_argument('--save_dir', type=str, default='save-tinyshakespeare',
+                       help='model directory to store checkpointed models')
+    parser.add_argument('-n', type=int, default=500,
+                       help='number of characters to sample')
+    parser.add_argument('--prime', type=text_type, default=u' ',
+                       help='prime text')
+    parser.add_argument('--sample', type=int, default=1,
+                       help='0 to use max at each timestep, 1 to sample at each timestep, 2 to sample on spaces')
 
-$phpGo2 = escapeshellarg(($_POST['go2'] |= "")? $_POST['go2'] : "500");
+    args = parser.parse_args()
+    sample(args)
 
-$phpGo3 = escapeshellarg(($_POST['go3'] |= "")? $_POST['go3'] : "Blender");
+def sample(args):
+    with open(os.path.join(args.save_dir, 'config.pkl'), 'rb') as f:
+        saved_args = cPickle.load(f)
+    with open(os.path.join(args.save_dir, 'chars_vocab.pkl'), 'rb') as f:
+        chars, vocab = cPickle.load(f)
+    model = Model(saved_args, True)
+    with tf.Session() as sess:
+        tf.initialize_all_variables().run()
+        saver = tf.train.Saver(tf.all_variables())
+        ckpt = tf.train.get_checkpoint_state(args.save_dir)
+        if ckpt and ckpt.model_checkpoint_path:
+            saver.restore(sess, ckpt.model_checkpoint_path)
+            print(model.sample(sess, chars, vocab, args.n, args.prime, args.sample))
 
-$phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
-
-?>
-
-<h1 align=center> Machine-serve by Jeremy Ellis </h1>
-
-
-<form action="rnn-both.php" method="POST">
-    
-    
- --save_dir  <select name="go1" >
-     <option value="<?php echo ($_POST['go1'] |= "")? $_POST['go1'] : "save-tinyshakespeare" ?>"><?php echo ($_POST['go1'] |= "")? $_POST['go1'] : "save-tinyshakespeare" ?> </option>
-     <option value="save-tinyshakespeare">save-tinyshakespeare</option>
-     <option value="save-abc">save-abc</option>
-     <option value="save-3d">save-3d</option>
- </select>
-    
- -n  <input type=text name="go2" value="<?php echo ($_POST['go2'] |= "")? $_POST['go2'] : "500" ?>">
-    
- --prime  <input type=text name="go3" value="<?php echo ($_POST['go3'] |= "")? $_POST['go3'] : "Blender" ?>">
-    
- --sample  <input type=text name="go4" value="<?php echo ($_POST['go4'] |= "")? $_POST['go4'] : "1" ?>">
-    
-  <input type="submit">
-    
-
-</form> 
-After clicking submit it will take a while as it will do all the calculations. On my computer 
-it took about 10 seconds.<br><br>
-
-
-
-
-<?php
-     
-
-
-     
-
-echo "sent:  python sample-tinyshakespeare.1.py --save_dir $phpGo1 -n $phpGo2 --prime $phpGo3 --sample $phpGo4<br><br><hr><br>";
-
-     
-//$output = shell_exec("python sample-tinyshakespeare.1.py --save_dir ".$phpGo1." -n ".$phpGo2." --prime ".$phpGo3." --sample ".$phpGo4);
-//$output = passthru("python sample-tinyshakespeare.1.py");
-     
-
-     
-
-
-// the following attempts to insert <br> line breaks don't work
-
-$output = preg_replace('#(\r\n?|\n)#', '<br>$1', shell_exec("python sample-tinyshakespeare.1.py --save_dir ".$phpGo1." -n ".$phpGo2." --prime ".$phpGo3." --sample ".$phpGo4));
-//$output = preg_replace('#(\r\n?|\n)#', '<br>$1', proc_open("python sample-tinyshakespeare.1.py --save_dir ".$phpGo1." -n ".$phpGo2." --prime ".$phpGo3." --sample ".$phpGo4));
-
-     //nl2br(exec("python test2.py ".$phpGo1." ".$phpGo2." ".$phpGo3." ".$phpGo4));
-     
-//echo preg_replace("/\r\n\r\n|\r\r|\n\n", "<br />",  $output);
-
-
-
-echo $output;
-
-?>
-
-
-
-
+if __name__ == '__main__':
+    main()
