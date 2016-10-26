@@ -1,35 +1,40 @@
 <?php
 
-$phpGo1 =  escapeshellarg($_POST['go1']);
-     
-$phpGo2 = escapeshellarg($_POST['go2']);
-     
-$phpGo3 = escapeshellarg($_POST['go3']);
-     
-$phpGo4 = escapeshellarg($_POST['go4']);
+
+
+
+
+$phpGo1 = escapeshellarg(($_POST['go1'] |= "")? $_POST['go1'] : "save-tinyshakespeare");
+  
+
+$phpGo2 = escapeshellarg(($_POST['go2'] |= "")? $_POST['go2'] : "500");
+
+$phpGo3 = escapeshellarg(($_POST['go3'] |= "")? $_POST['go3'] : "Blender");
+
+$phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
 
 ?>
 
 <h1 align=center> Machine-serve by Jeremy Ellis </h1>
-Enter training data use 1's or 0's only<br>
+
 
 <form action="rnn-both.php" method="POST">
     
     
- --save_dir  <input type=text name="go1" value="<?php if (isset($_POST['go1'])) echo $_POST['go1']; else echo "save-tinyshakespeare"; ?>">
+ --save_dir  <input type=text name="go1" value="<?php echo ($_POST['go1'] |= "")? $_POST['go1'] : "save-tinyshakespeare" ?>">
     
- -n  <input type=text name="go2" value="<?php if (isset($_POST['go2'])) echo $_POST['go2']; else echo "500"; ?>">
+ -n  <input type=text name="go2" value="<?php echo ($_POST['go2'] |= "")? $_POST['go2'] : "500" ?>">
     
- --prime  <input type=text name="go3" value="<?php if (isset($_POST['go3'])) echo $_POST['go3']; else echo "FRED:"; ?>">
+ --prime  <input type=text name="go3" value="<?php echo ($_POST['go3'] |= "")? $_POST['go3'] : "Blender" ?>">
     
- --sample  <input type=text name="go4" value="<?php if (isset($_POST['go4'])) echo $_POST['go4']; else echo "1"; ?>">
+ --sample  <input type=text name="go4" value="<?php echo ($_POST['go4'] |= "")? $_POST['go4'] : "1" ?>">
     
   <input type="submit">
     
 
 </form> 
 After clicking submit it will take a while as it will do all the calculations. On my computer 
-it took about 10 seconds.
+it took about 10 seconds.<br><br>
 
 
 
@@ -39,8 +44,8 @@ it took about 10 seconds.
 
 
      
-echo "<br><br>Results from sample-tinyshakespeare.py...<br>";
-echo "sent:  python sample-tinyshakespeare.1.py --save_dir $phpGo1 -n $phpGo2 --prime $phpGo3 --sample $phpGo4<br><hr><br>";
+
+echo "sent:  python sample-tinyshakespeare.1.py --save_dir $phpGo1 -n $phpGo2 --prime $phpGo3 --sample $phpGo4<br><br><hr><br>";
 
      
 //$output = shell_exec("python sample-tinyshakespeare.1.py --save_dir ".$phpGo1." -n ".$phpGo2." --prime ".$phpGo3." --sample ".$phpGo4);
