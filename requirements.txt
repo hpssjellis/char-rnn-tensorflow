@@ -1,4 +1,4 @@
-BzrTools==2.6.0
+#BzrTools==2.6.0
 Keras==1.1.0
 PyYAML==3.12
 SecretStorage==2.0.0
