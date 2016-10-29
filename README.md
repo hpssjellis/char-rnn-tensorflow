@@ -28,7 +28,13 @@ https://github.com/hpssjellis/char-rnn-tensorflow-music-3dprinting.git
 
 I use a blank workspace but php5 or python would probably work.
 
-in s terminal right click --> run the rnn-both.php file
+To setup pythyon
+
+right click --> run setup.py
+
+To run the web server 
+
+Right click --> run the rnn-both.php file
 
 (for a simple situtaion use rnn-serve.php with rnn-serve.html)
 
