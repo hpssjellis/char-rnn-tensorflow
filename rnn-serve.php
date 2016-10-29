@@ -9,7 +9,7 @@ $phpGo3 = escapeshellarg($_POST['go3']);
 $phpGo4 = escapeshellarg($_POST['go4']);
 
      
-echo "<br><br>Results from sample-tinyshakespeare.py...<br>";
+echo "<br><br>Results from sample-tinyshakespeare.1.py...load the rnn-serve.html file to activate<br>";
 echo "sent:  python sample-tinyshakespeare.1.py --save_dir $phpGo1 -n $phpGo2 --prime $phpGo3 --sample $phpGo4<br><hr><br>";
 
      
