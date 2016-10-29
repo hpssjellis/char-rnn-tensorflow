@@ -26,7 +26,7 @@ Install this github
 
 https://github.com/hpssjellis/char-rnn-tensorflow-music-3dprinting.git
 
-as a blank or php workspace
+I use a blank workspace but php5 or python would probably work.
 
 in s terminal right click --> run the index.php file
 
