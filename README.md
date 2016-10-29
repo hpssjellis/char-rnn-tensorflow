@@ -13,7 +13,7 @@ Inspired from Andrej Karpathy's [char-rnn](https://github.com/karpathy/char-rnn)
 .
 
 
-#Updated By jeremy Ellis
+#Updated By jeremy Ellis twitter @rocksetta 
 Oct 24, 2016
 
 Getting this working on cloud9 http://c9.io and with php support so that it can be done from a web page
@@ -32,6 +32,8 @@ in s terminal right click --> run the index.php file
 
 Open the link provided in the terminal output
 
+
+use at your own risk!
 .
 
 .
