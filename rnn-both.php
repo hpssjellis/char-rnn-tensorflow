@@ -26,6 +26,8 @@ $phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
      <option value="save-tinyshakespeare">save-tinyshakespeare</option>
      <option value="save-abc">save-abc</option>
      <option value="save-3d">save-3d</option>
+     <option value="save-new">save-new</option>
+     <option value="save-new2">save-new2</option>
  </select>
     
  -n  <input type=text name="go2" value="<?php echo ($_POST['go2'] |= "")? $_POST['go2'] : "500" ?>">
@@ -65,13 +67,21 @@ echo "sent:  python sample-tinyshakespeare.1.py --save_dir $phpGo1 -n $phpGo2 --
      
 
 
+// the following attempts to insert <br> line breaks don't work
 
 $output = preg_replace('#(\r\n?|\n)#', '<br>$1', shell_exec("python sample-tinyshakespeare.1.py --save_dir ".$phpGo1." -n ".$phpGo2." --prime ".$phpGo3." --sample ".$phpGo4));
+//$output = preg_replace('#(\r\n?|\n)#', '<br>$1', proc_open("python sample-tinyshakespeare.1.py --save_dir ".$phpGo1." -n ".$phpGo2." --prime ".$phpGo3." --sample ".$phpGo4));
+
+     //nl2br(exec("python test2.py ".$phpGo1." ".$phpGo2." ".$phpGo3." ".$phpGo4));
+     
+//echo preg_replace("/\r\n\r\n|\r\r|\n\n", "<br />",  $output);
+
 
 
 echo $output;
 
 ?>
+
 
 
 
