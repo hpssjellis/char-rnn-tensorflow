@@ -9,7 +9,7 @@ $phpGo1 = escapeshellarg(($_POST['go1'] |= "")? $_POST['go1'] : "save-tinyshakes
 
 $phpGo2 = escapeshellarg(($_POST['go2'] |= "")? $_POST['go2'] : "500");
 
-$phpGo3 = escapeshellarg(($_POST['go3'] |= "")? $_POST['go3'] : "Blender");
+$phpGo3 = escapeshellarg(($_POST['go3'] |= "")? $_POST['go3'] : "'");
 
 $phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
 
@@ -32,7 +32,7 @@ $phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
     
  -n  <input type=text name="go2" value="<?php echo ($_POST['go2'] |= "")? $_POST['go2'] : "500" ?>">
     
- --prime  <input type=text name="go3" value="<?php echo ($_POST['go3'] |= "")? $_POST['go3'] : "Blender" ?>">
+ --prime  <input type=text name="go3" value="<?php echo ($_POST['go3'] |= "")? $_POST['go3'] : "'" ?>">
     
  --sample  <select name="go4" >
      <option value="<?php echo ($_POST['go4'] |= "")? $_POST['go4'] : "1" ?>"><?php echo ($_POST['go4'] |= "")? $_POST['go4'] : "1" ?> </option>
@@ -46,7 +46,9 @@ $phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
 
 </form> 
 After clicking submit it will take a while as it will do all the calculations. On my computer 
-it took about 10 seconds.<br><br>
+it took about 10 seconds.<br>
+See <a href="www.keyfreemusic.com">www.keyfreemusic.com</a> or
+<a href="www.rocksetta.com">www.rocksetta.com</a> for some explanation.<br><br>
 
 
 
@@ -57,7 +59,7 @@ it took about 10 seconds.<br><br>
 
      
 
-echo "sent:  python sample-tinyshakespeare.1.py --save_dir $phpGo1 -n $phpGo2 --prime $phpGo3 --sample $phpGo4<br><br><hr><br>";
+echo "command sent:  python sample-tinyshakespeare.1.py --save_dir $phpGo1 -n $phpGo2 --prime $phpGo3 --sample $phpGo4<br><br><hr><br>";
 
      
 //$output = shell_exec("python sample-tinyshakespeare.1.py --save_dir ".$phpGo1." -n ".$phpGo2." --prime ".$phpGo3." --sample ".$phpGo4);
@@ -81,7 +83,6 @@ $output = preg_replace('#(\r\n?|\n)#', '<br>$1', shell_exec("python sample-tinys
 echo $output;
 
 ?>
-
 
 
 
