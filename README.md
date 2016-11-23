@@ -41,6 +41,13 @@ Right click --> run the rnn-both.php file
 Open the link provided in the terminal output
 
 
+I also have a github for installing both Magenta and this github onto cloud9 at
+
+
+https://github.com/hpssjellis/my-tensorflow-magenta-online
+
+
+
 use at your own risk!
 .
 
