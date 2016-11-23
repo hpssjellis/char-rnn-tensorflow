@@ -28,6 +28,8 @@ $phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
      <option value="save-3d">save-3d</option>
      <option value="save-new">save-new</option>
      <option value="save-new2">save-new2</option>
+     <option value="save-new4">save-new4 latest keyfreemusic sequence only 6</option>
+     <option value="save-new5">save-new5 latest keyfreemusic sequence only 6</option>
  </select>
     
  -n  <input type=text name="go2" value="<?php echo ($_POST['go2'] |= "")? $_POST['go2'] : "500" ?>">
@@ -47,8 +49,8 @@ $phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
 </form> 
 After clicking submit it will take a while as it will do all the calculations. On my computer 
 it took about 10 seconds.<br>
-See <a href="www.keyfreemusic.com">www.keyfreemusic.com</a> or
-<a href="www.rocksetta.com">www.rocksetta.com</a> for some explanation.<br><br>
+See <a href="http://www.keyfreemusic.com">www.keyfreemusic.com</a> or
+<a href="http://www.rocksetta.com">www.rocksetta.com</a> for some explanation.<br><br>
 
 
 
