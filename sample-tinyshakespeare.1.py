@@ -12,11 +12,9 @@ from model import Model
 
 from six import text_type
 
-import sys
-
 def main():
-    parser = argparse.ArgumentParser(sys.argv)
-    parser.add_argument('--save_dir', type=str, default='save-tinyshakespeare',
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--save_dir', type=str, default='anthems',
                        help='model directory to store checkpointed models')
     parser.add_argument('-n', type=int, default=500,
                        help='number of characters to sample')
