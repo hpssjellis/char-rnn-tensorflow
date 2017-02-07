@@ -135,4 +135,8 @@ echo ". "
 
 cd /home/ubuntu/workspace/
 
-git clone https://github.com/hpssjellis/char-rnn-tensorflow-music-3dprinting.git
+#git clone https://github.com/hpssjellis/char-rnn-tensorflow-music-3dprinting.git
+
+echo "run rnn-both.php"
+
+
