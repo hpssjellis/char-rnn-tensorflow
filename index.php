@@ -13,14 +13,14 @@ $phpGo3 = escapeshellarg(($_POST['go3'] |= "")? $_POST['go3'] : "'");
 
 $phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
 
-$phpmyAuto = escapeshellarg($_POST['myCoolAuto'] );
+$phpmyAuto = escapeshellarg(($_POST['myCoolAuto'] |= "")? $_POST['myCoolAuto'] : "");
 
 ?>
 
 
 <body onload="{
 
-if (document.getElementById('myAutoPlay').checked){
+if (! document.getElementById('myAutoPlay').checked){
 
   document.getElementById('myGo').click()
   document.getElementById('myPlayIt').click()
@@ -40,10 +40,11 @@ if (document.getElementById('myAutoPlay').checked){
     
 Choose an RNN  <select name="go1" >
      <option value="<?php echo ($_POST['go1'] |= "")? $_POST['go1'] : "jazzomat" ?>"><?php echo ($_POST['go1'] |= "")? $_POST['go1'] : "jazzomat" ?> </option>
-     <option value="save-new4">save-new4 latest keyfreemusic sequence only 6</option>
+     <option value="save-new4">Rocksetta General</option>
      <option value="anthems">raw National Anthems test attempt</option>
      <option value="anthem-big">National Anthems merged with Rocksetta</option>
      <option value="anthem-small">National Anthems merged with Rocksetta using small RNN</option>
+     <option value="jazzomat-small">Jazz greats RNN faster but not as good</option>
      <option value="jazzomat">Jazz greats RNN</option>
  </select>
     
@@ -56,8 +57,9 @@ Choose an RNN  <select name="go1" >
  <input name="go4" type=hidden value = "1">
     
   <input id="mySubmitThis" type="submit">
+
   
- <input name="myCoolAuto" type="checkbox" id="myAutoPlay" <?php echo ($_POST['myCoolAuto'] |= "on")? "checked" : "" ?> > Auto Play   
+ <input name="myCoolAuto" type="checkbox" id="myAutoPlay" <?php echo ($_POST['myCoolAuto'] != "")?  "checked" : ""  ?> > Stop Auto Play   
 
 </form> 
 After clicking submit it will take a while as it will do all the calculations. On my computer 
@@ -489,7 +491,7 @@ Edit playback note duration<input type="range" style="width:50%" id="mySlider" m
 <b>,  =lower octave &nbsp;&nbsp; ' = higher octave, &nbsp;&nbsp;  - = no sound, &nbsp;&nbsp;  _ = continue note <br><br>
 
 
-0 = root note (lets say C) &nbsp;&nbsp; 0=C  &nbsp;&nbsp; 1 = C# &nbsp;&nbsp; 2 = D &nbsp;&nbsp; 3 = D# &nbsp;&nbsp; 4 = E &nbsp;&nbsp; 5 = F &nbsp;&nbsp; 
+0 = root note (lets say C) &nbsp;&nbsp; 0 = C  &nbsp;&nbsp; 1 = C# &nbsp;&nbsp; 2 = D &nbsp;&nbsp; 3 = D# &nbsp;&nbsp; 4 = E &nbsp;&nbsp; 5 = F &nbsp;&nbsp; 
 6 = F# &nbsp;&nbsp; 7 = G &nbsp;&nbsp; 8 = G# &nbsp;&nbsp; 9 = A &nbsp;&nbsp; @ = A# &nbsp;&nbsp; * = B &nbsp;&nbsp; '0 = Higher C  </b><br> 
 
 </b>
