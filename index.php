@@ -13,13 +13,18 @@ $phpGo3 = escapeshellarg(($_POST['go3'] |= "")? $_POST['go3'] : "'");
 
 $phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
 
+$phpmyAuto = escapeshellarg($_POST['myCoolAuto'] );
+
 ?>
 
 
 <body onload="{
 
+if (document.getElementById('myAutoPlay').checked){
+
   document.getElementById('myGo').click()
   document.getElementById('myPlayIt').click()
+  }
 
 }">
 
@@ -51,7 +56,8 @@ Choose an RNN  <select name="go1" >
  <input name="go4" type=hidden value = "1">
     
   <input id="mySubmitThis" type="submit">
-    
+  
+ <input name="myCoolAuto" type="checkbox" id="myAutoPlay" <?php echo ($_POST['myCoolAuto'] |= "on")? "checked" : "" ?> > Auto Play   
 
 </form> 
 After clicking submit it will take a while as it will do all the calculations. On my computer 
@@ -450,6 +456,8 @@ for (myCount=0; myCount<= myIn.value.length-1; myCount++){
         
 
 }">
+
+
 
 <br><br>
 
