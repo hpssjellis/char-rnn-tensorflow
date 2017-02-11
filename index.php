@@ -20,12 +20,22 @@ $phpmyAuto = escapeshellarg(($_POST['myCoolAuto'] |= "")? $_POST['myCoolAuto'] :
 
 <body onload="{
 
+  document.getElementById('myCoolRange').value = document.getElementById('myCoolTempo').value
+  document.getElementById('mySpeed').value = document.getElementById('myCoolTempo').value
+  document.myBaseDuration = document.getElementById('myCoolTempo').value
+  
+  
 if (! document.getElementById('myAutoPlay').checked){
 
   document.getElementById('myGo').click()
   document.getElementById('myPlayIt').click()
   }
+  
+  
+  
 
+
+ //alert(document.myBaseDuration)
 }">
 
 <h1 align=center> Machine Learning Play along RNN Music Serve by @rocksetta </h1>
@@ -60,6 +70,12 @@ Choose an RNN  <select name="go1" >
 
   
  <input name="myCoolAuto" type="checkbox" id="myAutoPlay" <?php echo ($_POST['myCoolAuto'] != "")?  "checked" : ""  ?> > Stop Auto Play   
+ 
+ 
+  <input type="hidden" id="myCoolTempo" name="myTempo" value="<?php echo ($_POST['myTempo'] |= "")? $_POST['myTempo'] : "250" ?>">
+ 
+ 
+ 
 
 </form> 
 After clicking submit it will take a while as it will do all the calculations. On my computer 
@@ -478,13 +494,18 @@ Change Key <input style="font-size:35px" type=button value="+" onclick="{
 
 
 
-Edit playback note duration<input type="range" style="width:50%" id="mySlider" min="40" max="1000" step="1" value="100"  onchange="{
+Edit playback note duration <input id="myCoolRange" type="range" style="width:50%" id="mySlider" min="40" max="1000" step="1" value="100"  onchange="{
   document.myBaseDuration = this.value
   document.all.mySpeed.value = this.value
+  document.getElementById('myCoolTempo').value =  document.getElementById('myCoolRange').value
+  
   document.all.myGo.click()
 }"><input type=text id="mySpeed" value=100 size=5 onchange="{
-   document.myBaseDuration = this.value
-     document.all.myGo.click()
+      document.myBaseDuration = this.value
+      document.all.myGo.click()
+     
+      document.getElementById('myCoolTempo').value =  document.getElementById('mySpeed').value
+      document.getElementById('myCoolRange').value =  document.getElementById('mySpeed').value
 }"> milliseconds<br>
 
 <h3>Key:</h3>
