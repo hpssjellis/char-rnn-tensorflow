@@ -468,8 +468,11 @@ for (myCount=0; myCount<= myIn.value.length-1; myCount++){
 
 <input type=button value="Stop" onclick="{
 
-   document.myKeepGoing = false;
-        
+        document.myKeepGoing = false;
+        oscillator.stop(0);
+        oscillator.disconnect(gainNode);
+        gainNode.disconnect(context.destination);
+        context.close();    
         
         
 
@@ -481,15 +484,62 @@ for (myCount=0; myCount<= myIn.value.length-1; myCount++){
 
 
 Change Key <input style="font-size:35px" type=button value="+" onclick="{
-  for (myGo=0; myGo<= document.myNotes[1].length-1; myGo++ ){
-     document.myNotes[1][myGo] = document.myNotes[1][myGo] * 1.05946309436
-  }
+
+
+
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/,\*/g,'F');  // convert ,* to F
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/\*/g,'G');   // convert * to G
+
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/@/g,'*');
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/9/g,'@');
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/8/g,9);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/7/g,8);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/6/g,7);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/5/g,6);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/4/g,5);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/3/g,4);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/2/g,3);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/1/g,2);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/0/g,1);
+
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/F/g,0);      // F now to 0
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/G/g,'\'0');  // G now to '0
+
+
+
 }">
 
 <input type=button style="font-size:35px" value="-" onclick="{
-  for (myGo=0; myGo<= document.myNotes[1].length-1; myGo++ ){
-     document.myNotes[1][myGo] = document.myNotes[1][myGo] / 1.05946309436
-  }
+
+
+
+
+
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/'0/g,'F');  // convert ,* to F
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/0/g,'G');   // convert * to G
+
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/1/g,0);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/2/g,1);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/3/g,2);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/4/g,3);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/5/g,4);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/6/g,5);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/7/g,6);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/8/g,7);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/9/g,8);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/\@/g,9);
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/\*/g,'@');
+
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/F/g,'*');      // F now to 0
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(/G/g,',*');  // G now to '0
+
+
+
+
+
+
+
+
 }"><br>
 
 
