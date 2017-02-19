@@ -40,7 +40,7 @@ if (! document.getElementById('myAutoPlay').checked){
 
 <h1 align=center> Machine Learning Play along RNN Music Serve by @rocksetta </h1>
 
-
+You tube video at <a href="https://youtu.be/kqzBDt2-QI4">https://youtu.be/kqzBDt2-QI4</a><br><br>
 
 
 
@@ -56,11 +56,15 @@ Choose an RNN  <select name="go1" >
      <option value="anthem-small">National Anthems merged with Rocksetta using small RNN</option>
      <option value="jazzomat-small">Jazz greats RNN faster but not as good</option>
      <option value="jazzomat">Jazz greats RNN</option>
+     <option value="beatles-short">Short Beatles Songs</option>
+     <option value="beatles-200">Continuous Beatles</option>
+     <option value="beatles-800">Overtrained Beatles Warning: may snap to a learnt song.</option>
+     <option value="beatles-10300">Super Overtrained Beatles Warning: may snap to a learnt song.</option>
  </select>
     
- <font color=red>-n </font> <input size=5 type=text name="go2" value="<?php echo ($_POST['go2'] |= "")? $_POST['go2'] : "10" ?>">
+ <font color=red>-n </font> <input size=5 type=text name="go2" value="<?php echo ($_POST['go2'] |= "")? $_POST['go2'] : "30" ?>">
     
- --prime  <input type=text id="myPrime" name="go3" value="<?php echo ($_POST['go3'] |= "")? $_POST['go3'] : "72_50" ?>">
+ --prime  <input type=text id="myPrime" name="go3" value="<?php echo ($_POST['go3'] |= "")? $_POST['go3'] : "47'0_" ?>">
     
 
  
@@ -143,7 +147,7 @@ function myPlay(volume) {
   
   oscillator = context.createOscillator();
   oscillator.connect(gainNode);
-  oscillator.type = 'sine'; //sine square sawtooth triangle custom
+  oscillator.type = 'triangle'; //sine square sawtooth triangle custom
   
   gainNode.connect(context.destination);
   gainNode.gain.value = volume; //volume 1 = max
@@ -179,104 +183,7 @@ function myPlay(volume) {
  
    
    
- 
-   
- function myPlay2(volume) {
-    
-   frequency2 =  document.myNotes[1][document.myCounter22] * 0.7491
-   mydura = document.myNotes[2][document.myCounter22]
-    
-  var context2 = new AudioContext;
-  var gainNode2 = context2.createGain();
-  
-  oscillator2 = context2.createOscillator();
-  oscillator2.connect(gainNode2);
-  oscillator2.type = 'sine'; //sine square sawtooth triangle custom
-  
-  gainNode2.connect(context2.destination);
-  gainNode2.gain.value = volume; //volume 1 = max
-  gainNode2.connect(context2.destination);
-        
-  gainNode2.gain.setValueAtTime(0, context2.currentTime);
-  gainNode2.gain.linearRampToValueAtTime(1, context2.currentTime + 30 / 1000); //attack
-  gainNode2.gain.linearRampToValueAtTime(0, context2.currentTime + (mydura-30) / 1000); //decay
 
-  oscillator2.frequency.value = frequency2;
-  document.all.myArea04.value = context2.currentTime + ' freq '+frequency2+ ', '+mydura +
-  '\n'+document.all.myArea04.value
-  oscillator2.start(0);
-
-    setTimeout(function() {
-        oscillator2.stop(0);
-        oscillator2.disconnect(gainNode2);
-        gainNode2.disconnect(context2.destination);
-        context2.close();
-    }, mydura)
-  
-    document.myCounter22 +=1
-    if(document.myCounter22 <= document.myNotes[1].length-1){
-        if (document.myKeepGoing){
-            setTimeout('myPlay2(1.0)', mydura)
-        }
-    }
-
-}
-
-
-       
-   
- 
-   
- function myPlay3(volume) {
-    
-   frequency3 =  document.myNotes[1][document.myCounter23] * 0.63
-   mydura = document.myNotes[2][document.myCounter23]
-    
-  var context3 = new AudioContext;
-  var gainNode3 = context3.createGain();
-  
-  oscillator3 = context3.createOscillator();
-  oscillator3.connect(gainNode3);
-  oscillator3.type = 'sine'; //sine square sawtooth triangle custom
-  
-  gainNode3.connect(context3.destination);
-  gainNode3.gain.value = volume; //volume 1 = max
-  gainNode3.connect(context3.destination);
-        
-  gainNode3.gain.setValueAtTime(0, context3.currentTime);
-  gainNode3.gain.linearRampToValueAtTime(1, context3.currentTime + 30 / 1000); //attack
-  gainNode3.gain.linearRampToValueAtTime(0, context3.currentTime + (mydura-30) / 1000); //decay
-
-  oscillator3.frequency.value = frequency3;
-  document.all.myArea04.value = context3.currentTime + ' freq '+frequency3+ ', '+mydura +
-  '\n'+document.all.myArea04.value
-  oscillator3.start(0);
-
-    setTimeout(function() {
-        oscillator3.stop(0);
-        oscillator3.disconnect(gainNode3);
-        gainNode3.disconnect(context3.destination);
-        context3.close();
-    }, mydura)
-  
-    document.myCounter23 +=1
-    if(document.myCounter23 <= document.myNotes[1].length-1){
-        if (document.myKeepGoing){
-            setTimeout('myPlay3(1.0)', mydura)
-        }
-    }
-
-}
-
-
-       
-     
-   
-   
-   
-   
-   
-   
    
    
    
@@ -474,7 +381,12 @@ for (myCount=0; myCount<= myIn.value.length-1; myCount++){
         gainNode.disconnect(context.destination);
         context.close();    
         
-        
+
+  
+        clearInterval(document.myTimer);   // for piano
+
+
+  
 
 }">
 
@@ -594,9 +506,580 @@ Edit playback note duration <input id="myCoolRange" type="range" style="width:50
 }">    <font color=red>Edit the box below using the "key" above and click "Resend" </font>  <br><br>
 
 
-<textarea id="myArea01" rows=20 cols=50><?php echo ($output |= "")? $output : "72_50" ?></textarea>
-<textarea id="myArea02" rows=20 cols=50></textarea>
 
+
+
+
+
+<br>
+
+
+
+
+
+ 
+    
+<script>
+context = new Array()
+gainNode = new Array()
+
+
+function myStop8(myNum) {
+   gainNode[myNum].gain.setTargetAtTime(0, context[myNum].currentTime, 0.020); //0.015
+
+   setTimeout(function(){ // give the above line 300 ms to achive the damping of the sound
+      gainNode[myNum].disconnect(context[myNum].destination);
+      context[myNum].close();
+   }, 50);
+
+}
+
+
+
+function myPlay8(frequency, myNum) {
+
+  volume = 1.0   
+  context[myNum] = new AudioContext;
+  gainNode[myNum] = context[myNum].createGain();
+  //gainNode[myNum].gain.setTargetAtTime(0, context[myNum].currentTime, 0.015);
+
+  oscillator = context[myNum].createOscillator();
+  oscillator.connect(gainNode[myNum]);
+  oscillator.type = 'triangle'; //sine square sawtooth triangle custom
+  
+  gainNode[myNum].connect(context[myNum].destination);
+  gainNode[myNum].gain.value = volume; //volume 1 = max
+  gainNode[myNum].connect(context[myNum].destination);
+        
+  gainNode[myNum].gain.setValueAtTime(0, context[myNum].currentTime);
+  gainNode[myNum].gain.linearRampToValueAtTime(1, context[myNum].currentTime + 10 / 1000); //attack
+ // gainNode[myNum].gain.linearRampToValueAtTime(1, context[myNum].currentTime + 30 / 1000); //attack
+
+  oscillator.frequency.value = frequency;
+  oscillator.start(0);
+
+}
+
+
+
+
+
+
+document.myStop = 'fred';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function myAdd(){
+   document.getElementById('myArea01').value += '_' 
+
+}
+
+function myRest(){
+
+   document.getElementById('myArea01').value += '-' 
+   
+}
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+<input type=button value= Clear onclick="{
+  
+  document.getElementById('myArea01').value =''
+
+
+//http://www.richardbrice.net/midi_notes.htm
+
+}"><br><br>
+
+
+
+
+
+
+
+
+
+<img id="my90" src="white-off.png" style="position:relative; top:0px; left:0px z-index:1;" ontouchstart="{
+  this.src='white-on.png';  
+
+  myPlay8(246.94, 59);     //B 3 	59 		246.94
+  document.getElementById('myArea01').value += ',*';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='white-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500);  
+      myStop8(59);   
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='white-on.png';  
+
+  myPlay8(246.94, 59);     //B 3 	59 		246.94
+  document.getElementById('myArea01').value += ',*';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='white-off.png';
+       clearInterval(document.myTimer);      
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(59);   
+}"  >
+
+
+
+
+<img id="my00" src="white-off.png" style="position:relative; top:0px; left:-8px; z-index:1;"  ontouchstart="{
+  this.src='white-on.png';  
+
+  myPlay8(261.63, 60);  // C 4 	60 		261.63* Middle-C
+  document.getElementById('myArea01').value += '0';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='white-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500); 
+      myStop8(60);   
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='white-on.png';  
+
+  myPlay8(261.63, 60);  // C 4 	60 		261.63* Middle-C
+  document.getElementById('myArea01').value += '0';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='white-off.png';
+       clearInterval(document.myTimer);
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(60);   
+}"  >
+
+
+
+
+
+<img id="my01" src="black-off.png" style="position:relative; top:-31px; left:-24px; z-index:3;"  ontouchstart="{
+  this.src='black-on.png'; 
+
+
+  myPlay8(277.18, 61);  // C# 4 	61 		277.18
+  document.getElementById('myArea01').value += '1';   //****
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='black-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500); 
+      myStop8(61);                                      //****
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='black-on.png';  
+
+  myPlay8(277.18, 61);  // C# 4 	61 		277.18
+  document.getElementById('myArea01').value += '1';     //****
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='black-off.png';
+       clearInterval(document.myTimer);
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(61);                                     //****
+}"  >
+
+
+
+
+
+
+<img id="my02" src="white-off.png"  style="position:relative; top:0px; left:-36px; z-index:1;"  ontouchstart="{
+  this.src='white-on.png';   
+
+  myPlay8(293.66, 62);     // D 4 	62 		293.66
+  document.getElementById('myArea01').value += '2';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='white-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500);  
+      myStop8(62);   
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='white-on.png';  
+
+  myPlay8(293.66, 62);     // D 4 	62 		293.66
+  document.getElementById('myArea01').value += '2';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='white-off.png';
+       clearInterval(document.myTimer);      
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(62);   
+}"  >
+
+
+
+
+<img id="my03" src="black-off.png"   style="position:relative; top:-31px; left:-51px; z-index:3;"  ontouchstart="{
+  this.src='black-on.png';   
+
+  myPlay8(311.13, 63 );  // D# 4 	63 		311.13
+  document.getElementById('myArea01').value += '3';   //****
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='black-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500); 
+      myStop8(63);                                      //****
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='black-on.png';  
+
+  myPlay8(311.13, 63 );  // D# 4 	63 		311.13
+  document.getElementById('myArea01').value += '3';     //****
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='black-off.png';
+       clearInterval(document.myTimer);
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(63);                                     //****
+}"  >
+
+
+
+<img id="my04" src="white-off.png"   style="position:relative; top:0px; left:-64px; z-index:1;"  ontouchstart="{
+  this.src='white-on.png';   
+
+  myPlay8(329.63, 64);     // E 4 	64 		329.63
+  document.getElementById('myArea01').value += '4';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='white-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500);  
+      myStop8(64);   
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='white-on.png';  
+
+  myPlay8(329.63, 64);     // E 4 	64 		329.63
+  document.getElementById('myArea01').value += '4';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='white-off.png';
+       clearInterval(document.myTimer);      
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(64);   
+}"  >
+
+
+<img id="my05" src="white-off.png"   style="position:relative; top:0px; left:-71px; z-index:1;"  ontouchstart="{
+  this.src='white-on.png';   
+
+  myPlay8(349.23, 65);     // F 4 	65 		349.23
+  document.getElementById('myArea01').value += '5';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='white-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500);  
+      myStop8(65);   
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='white-on.png';  
+
+  myPlay8(349.23, 65);     // F 4 	65 		349.23
+  document.getElementById('myArea01').value += '5';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='white-off.png';
+       clearInterval(document.myTimer);      
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(65);   
+}"  >
+
+
+
+
+<img id="my06" src="black-off.png"   style="position:relative; top:-31px; left:-84px; z-index:3;"  ontouchstart="{
+  this.src='black-on.png';   
+
+
+  myPlay8(369.99, 66);  // F# 4 	66 		369.99
+  document.getElementById('myArea01').value += '6';   //****
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='black-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500); 
+      myStop8(66);                                      //****
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='black-on.png';  
+
+  myPlay8(369.99, 66);  // F# 4 	66 		369.99
+  document.getElementById('myArea01').value += '6';     //****
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='black-off.png';
+       clearInterval(document.myTimer);
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(66);                                     //****
+}"  >
+
+
+<img id="my07" src="white-off.png"   style="position:relative; top:0px; left:-99px; z-index:1;"  ontouchstart="{
+  this.src='white-on.png';   
+
+  myPlay8(391.99, 67);     // G 4 	67 		391.99
+  document.getElementById('myArea01').value += '7';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='white-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500);  
+      myStop8(67);   
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='white-on.png';  
+
+  myPlay8(391.99, 67);     // G 4 	67 		391.99
+  document.getElementById('myArea01').value += '7';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='white-off.png';
+       clearInterval(document.myTimer);      
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(67);   
+}"  >
+
+
+
+
+<img id="my08" src="black-off.png"   style="position:relative; top:-31px; left:-111px; z-index:3;"  ontouchstart="{
+  this.src='black-on.png';   
+
+  myPlay8(415.31, 68);  // G# 4 	68 		415.31
+  document.getElementById('myArea01').value += '8';   //****
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='black-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500); 
+      myStop8(68);                                      //****
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='black-on.png';  
+
+  myPlay8(415.31, 68);  // G# 4 	68 		415.31
+  document.getElementById('myArea01').value += '8';     //****
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='black-off.png';
+       clearInterval(document.myTimer);
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(68);                                     //****
+}"  >
+
+
+
+<img id="my09" src="white-off.png"   style="position:relative; top:0px; left:-127px; z-index:1;"  ontouchstart="{
+  this.src='white-on.png';   
+
+  myPlay8(440.00, 69);     // A 4 	69 		440.00
+  document.getElementById('myArea01').value += '9';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='white-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500);  
+      myStop8(69);   
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='white-on.png';  
+
+  myPlay8(440.00, 69);     // A 4 	69 		440.00
+  document.getElementById('myArea01').value += '9';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='white-off.png';
+       clearInterval(document.myTimer);      
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(69);   
+}"  >
+
+
+
+
+<img id="my10" src="black-off.png"   style="position:relative; top:-31px; left:-138px; z-index:3;"  ontouchstart="{
+  this.src='black-on.png';   
+
+
+  myPlay8(466.16, 70);  // A# 4 	70 		466.16
+  document.getElementById('myArea01').value += '@';   //****
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='black-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500); 
+      myStop8(70);                                      //****
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='black-on.png';  
+
+  myPlay8(466.16, 70);  // A# 4 	70 		466.16
+  document.getElementById('myArea01').value += '@';     //****
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='black-off.png';
+       clearInterval(document.myTimer);
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(70);                                     //****
+}"  >
+
+
+
+<img id="my11" src="white-off.png"   style="position:relative; top:0px; left:-156px; z-index:1;"  ontouchstart="{
+  this.src='white-on.png';   
+
+  myPlay8(493.88, 71);     // B 4 	71 		493.88 	
+  document.getElementById('myArea01').value += '*';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='white-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500);  
+      myStop8(71);   
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='white-on.png';  
+
+  myPlay8(493.88, 71);     // B 4 	71 		493.88
+  document.getElementById('myArea01').value += '*';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='white-off.png';
+       clearInterval(document.myTimer);      
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(71);   
+}"  >
+
+
+
+<img id="my12" src="white-off.png"   style="position:relative; top:0px; left:-164px; z-index:1;"  ontouchstart="{
+  this.src='white-on.png';   
+
+  myPlay8(523.25, 72 );     // C 5 	72 		523.25
+  document.getElementById('myArea01').value += '\'0';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+  return false // to stop the button click
+}"    ontouchend="{
+      this.src='white-off.png';
+      clearInterval(document.myTimer);
+      document.myTimer = setInterval('myRest()', 500);  
+      myStop8(72 );   
+      return false // to stop the button click
+}"  onmousedown="{
+  this.src='white-on.png';  
+
+  myPlay8(523.25, 72 );     // C 5 	72 		523.25
+  document.getElementById('myArea01').value += '\'0';
+  clearInterval(document.myTimer);
+  document.myTimer = setInterval('myAdd()', 200);
+}"     onmouseup="{
+       this.src='white-off.png';
+       clearInterval(document.myTimer);      
+       document.myTimer = setInterval('myRest()', 500); 
+       myStop8(72 );   
+}"  >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<textarea id="myArea01" rows=20 cols=50><?php echo ($output |= "")? $output : "47'0_" ?></textarea>
+<textarea id="myArea02" rows=20 cols=50></textarea>
 
 
 <br>
@@ -610,6 +1093,16 @@ Uselful links at <br>
 <a href="http://www.keyfreemusic.com">Keyfreemusic.com</a><br>
 <a href="http://rocksetta.com/support/convert-key-to-abc.html">Convert this to rocksetta input</a>
 Github at <a href="https://github.com/hpssjellis/char-rnn-tensorflow-music-3dprinting">https://github.com/hpssjellis/char-rnn-tensorflow-music-3dprinting</a>
+
+
+
+
+
+
+
+
+
+
 
 
 </body>
