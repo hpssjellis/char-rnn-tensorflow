@@ -14,6 +14,7 @@ $phpGo3 = escapeshellarg(($_POST['go3'] |= "")? $_POST['go3'] : "'");
 $phpGo4 = escapeshellarg(($_POST['go4'] |= "")? $_POST['go4'] : "1");
 
 $phpmyAuto = escapeshellarg(($_POST['myCoolAuto'] |= "")? $_POST['myCoolAuto'] : "");
+$phpmyCool2 = escapeshellarg(($_POST['myCool2'] |= "")? $_POST['myCool2'] : "");
 
 ?>
 
@@ -24,11 +25,17 @@ $phpmyAuto = escapeshellarg(($_POST['myCoolAuto'] |= "")? $_POST['myCoolAuto'] :
   document.getElementById('mySpeed').value = document.getElementById('myCoolTempo').value
   document.myBaseDuration = document.getElementById('myCoolTempo').value
   
-  
-if (! document.getElementById('myAutoPlay').checked){
+   
+  if (! document.getElementById('myCoolPlay').checked){
 
-  document.getElementById('myGo').click()
-  document.getElementById('myPlayIt').click()
+     document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(document.all.myPrime.value, '');
+   
+  }
+   
+  if (! document.getElementById('myAutoPlay').checked){
+
+     document.getElementById('myGo').click()
+     document.getElementById('myPlayIt').click()
   }
   
   
@@ -73,7 +80,8 @@ Choose an RNN  <select name="go1" >
   <input id="mySubmitThis" type="submit">
 
   
- <input name="myCoolAuto" type="checkbox" id="myAutoPlay" <?php echo ($_POST['myCoolAuto'] != "")?  "checked" : ""  ?> > Stop Auto Play   
+ <input name="myCoolAuto" type="checkbox" id="myAutoPlay" <?php echo ($_POST['myCoolAuto'] != "")?  "checked" : ""  ?> > Stop Auto Play  
+ <input name="myCool2" type="checkbox" id="myCoolPlay" <?php echo ($_POST['myCool2'] != "")?  "checked" : ""  ?> > Play Primer    
  
  
   <input type="hidden" id="myCoolTempo" name="myTempo" value="<?php echo ($_POST['myTempo'] |= "")? $_POST['myTempo'] : "250" ?>">
@@ -225,7 +233,7 @@ function myPlay(volume) {
 
 
 
-<input type=button  value="Convert" id="myGo" onclick="{
+<input type=button  value="Play" id="myGo" onclick="{
 document.all.myArea02.value = ''
 document.myCounter = -1;
 myIn = document.getElementById('myArea01')
@@ -340,12 +348,17 @@ for (myCount=0; myCount<= myIn.value.length-1; myCount++){
   
   
    
-  
+  document.getElementById('myPlayIt').click()
   
 }">
 
 
-<input id="myPlayIt" type=button value="Play Single Notes" onclick="{
+
+
+
+
+
+<input id="myPlayIt" type=hidden value="Play Single Notes" onclick="{
 
  document.myKeepGoing = true;
  document.myCounter2 = 0;
@@ -358,20 +371,7 @@ for (myCount=0; myCount<= myIn.value.length-1; myCount++){
 
 }">
 
-<input type=hidden value="Play Chords" onclick="{
 
- document.myKeepGoing = true;
-//document.all.myGo.click()
- document.myCounter2 = 0;
- document.myCounter22 = 0;
- document.myCounter23 = 0;
- 
- 
-  myPlay(1.0);  // volume  // recursive function
-  
-  myPlay2(1.0); 
-  myPlay3(1.0); 
-}">
 
 <input type=button value="Stop" onclick="{
 
@@ -497,13 +497,26 @@ Edit playback note duration <input id="myCoolRange" type="range" style="width:50
 
 
 
-<input type=button style="font-size:25px; color:red" value="Resend" onclick="{
+<input type=button style="font-size:25px; color:red" id="myResendIt" value="Resend" onclick="{
+   clearInterval(document.myTimer);  
 
    document.all.myPrime.value = document.all.myArea01.value
    document.getElementById('mySubmitThis').click()
 
 
-}">    <font color=red>Edit the box below using the "key" above and click "Resend" </font>  <br><br>
+}">    
+
+<input type=button style="font-size:25px;" value="Remove" onclick="{
+
+  // document.all.myPrime.value = document.all.myArea01.value
+  // document.getElementById('mySubmitThis').click()
+
+ document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace(document.all.myPrime.value, '');
+
+}">    
+
+
+<br><font color=red>Edit the box below using the "key" and click "Resend" or use the piano for auto resend after 5 rests.</font>  <br><br>
 
 
 
@@ -589,6 +602,15 @@ function myRest(){
 
    document.getElementById('myArea01').value += '-' 
    
+   if (document.getElementById('myArea01').value.search('-----') >= 0){
+       
+      document.getElementById('myArea01').value = document.getElementById('myArea01').value.replace('-----', '');
+      document.getElementById('myResendIt').click()
+       
+   }
+   
+   
+   
 }
 
 
@@ -602,6 +624,14 @@ function myRest(){
 
 
 
+<input 
+type=button value=Stop onclick="{
+  
+  clearInterval(document.myTimer);  
+
+}">
+
+
 
 <input type=button value= Clear onclick="{
   
@@ -610,7 +640,7 @@ function myRest(){
 
 //http://www.richardbrice.net/midi_notes.htm
 
-}"><br><br>
+}"><br>
 
 
 
@@ -1076,7 +1106,7 @@ function myRest(){
 
 
 
-
+<br>
 
 <textarea id="myArea01" rows=20 cols=50><?php echo ($output |= "")? $output : "47'0_" ?></textarea>
 <textarea id="myArea02" rows=20 cols=50></textarea>
