@@ -6,7 +6,7 @@ Inspired from Andrej Karpathy's [char-rnn](https://github.com/karpathy/char-rnn)
 
 .
 
-.
+The website about it is here https://www.rocksetta.com/tensorflow-teacher/3d-print-tensorflow/
 
 .
 
